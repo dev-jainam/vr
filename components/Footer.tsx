@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-vr-navy text-white pt-24 overflow-hidden border-t border-white/5">
+    <footer className="bg-[#050505] text-white pt-24 overflow-hidden border-t border-white/10">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 pb-20">
@@ -98,7 +98,7 @@ const Footer: React.FC = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-gray-300 hover:text-white transition-colors text-[11px] uppercase tracking-[0.2em] font-medium flex items-center gap-3 group"
+                    className="text-gray-200 hover:text-white transition-colors text-[11px] uppercase tracking-[0.2em] font-medium flex items-center gap-3 group"
                   >
                     <span className="w-1 h-1 bg-vr-blue/30 group-hover:bg-vr-blue rounded-full transition-all"></span>
                     {link.label}
@@ -124,7 +124,7 @@ const Footer: React.FC = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-gray-300 hover:text-white transition-colors text-[11px] uppercase tracking-[0.2em] font-medium flex items-center gap-3 group"
+                    className="text-gray-200 hover:text-white transition-colors text-[11px] uppercase tracking-[0.2em] font-medium flex items-center gap-3 group"
                   >
                     <span className="w-1 h-1 bg-vr-blue/30 group-hover:bg-vr-blue rounded-full transition-all"></span>
                     {link.label}
@@ -176,8 +176,8 @@ const Footer: React.FC = () => {
         </div>
 
         {/* CTA Strip */}
-        <div className="py-12 border-t border-white/5">
-          <div className="bg-vr-blue rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden group border border-white/5">
+        <div className="py-12 border-t border-white/10">
+          <div className="bg-vr-blue rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden group border border-white/10">
             <div className="absolute top-0 left-0 w-full h-full bg-white opacity-[0.05] group-hover:opacity-[0.1] transition-opacity duration-700"></div>
             <div className="text-center md:text-left relative z-10">
               <h3 className="text-2xl md:text-3xl font-bold luxury-font text-white mb-3 tracking-tight">
@@ -199,14 +199,14 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Section with Confidentiality Notice */}
-        <div className="pt-10 pb-12 border-t border-white/5">
+        <div className="pt-10 pb-12 border-t border-white/10">
           <div className="flex flex-col gap-10">
             <div className="grid lg:grid-cols-3 items-start gap-8">
               <div className="lg:col-span-2">
                 <h5 className="text-[10px] font-bold uppercase tracking-[0.4em] text-vr-blue mb-3">
                   Confidentiality Notice
                 </h5>
-                <p className="text-gray-500 text-[11px] leading-relaxed font-light italic max-w-2xl">
+                <p className="text-gray-300 text-[11px] leading-relaxed font-light italic max-w-2xl">
                   This document and the associated web portal contain privileged
                   and confidential information intended solely for the
                   addressee. Unauthorized use, disclosure, or distribution of
@@ -217,20 +217,20 @@ const Footer: React.FC = () => {
               <div className="flex justify-end gap-6 items-center">
                 <Link
                   to="/privacy-policy"
-                  className="text-[10px] uppercase tracking-widest text-gray-500 hover:text-vr-blue transition-colors"
+                  className="text-[10px] uppercase tracking-widest text-gray-300 hover:text-vr-blue transition-colors"
                 >
                   Privacy Policy
                 </Link>
                 <Link
                   to="/terms-of-engagement"
-                  className="text-[10px] uppercase tracking-widest text-gray-500 hover:text-vr-blue transition-colors"
+                  className="text-[10px] uppercase tracking-widest text-gray-300 hover:text-vr-blue transition-colors"
                 >
                   Terms of Engagement
                 </Link>
               </div>
             </div>
 
-            <div className="flex flex-col lg:flex-row justify-between items-center gap-8 text-[10px] font-bold uppercase tracking-[0.35em] text-gray-500 border-t border-white/5 pt-10">
+            <div className="flex flex-col lg:flex-row justify-between items-center gap-8 text-[10px] font-bold uppercase tracking-[0.35em] text-gray-300 border-t border-white/10 pt-10">
               <div className="flex items-center gap-2">
                 <span>© VR GLOBAL CONSULTANCY FZE</span>
                 <span className="text-vr-blue">·</span>
@@ -238,7 +238,7 @@ const Footer: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <Globe className="w-3 h-3 text-vr-blue/40" />
+                <Globe className="w-3 h-3 text-vr-blue/60" />
                 <span>Dubai</span>
                 <span className="text-vr-blue">·</span>
                 <span>United Arab Emirates</span>

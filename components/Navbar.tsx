@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
 
@@ -27,12 +26,6 @@ const Navbar: React.FC = () => {
   ];
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
     setIsOpen(false);
     setShowDropdown(false);
   }, [location.pathname]);
@@ -42,8 +35,7 @@ const Navbar: React.FC = () => {
     return location.pathname === path;
   };
 
-  const isHomePage = location.pathname === '/';
-  const isLightMode = scrolled || !isHomePage;
+  const isLightMode = true;
 
   const navBase = 'fixed w-full z-50 transition-all duration-500 ease-in-out';
   const navBg = isLightMode

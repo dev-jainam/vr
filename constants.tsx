@@ -35,7 +35,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     designation: 'Managing Director & CEO',
     summary: 'Visionary, results-driven leader blending strategic foresight with financial governance to deliver compliant, growth-ready solutions.',
     bio: 'A seasoned CEO with extensive experience in institutional advisory, financial governance, and corporate strategy. Over the years, Rakesh has successfully guided organizations across the UAE in strengthening governance frameworks, optimizing financial performance, and driving sustainable growth. Known for blending strategic foresight with operational excellence, he delivers actionable solutions that enhance stakeholder confidence, ensure regulatory compliance, and create long-term value.',
-    image: 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&q=80&w=900'
+    image: '/assets/RakeshSodavadiya.png'
   },
   {
     id: 'manager-assets',
@@ -43,7 +43,15 @@ export const TEAM_MEMBERS: TeamMember[] = [
     designation: 'Manager - Asset & Inventory',
     summary: 'Asset and inventory specialist focused on efficient governance, client retention, and transparent communication.',
     bio: 'Meet Mitesh Savaliya, an accomplished professional with extensive experience in asset and inventory management services. Known for his strong communication skills, client relationship expertise, and dedication to client retention, Mitesh consistently ensures efficient asset management while delivering exceptional service and value to every organization he works with.',
-    image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=900'
+    image: '/assets/MiteshSavaliya.png'
+  },
+  {
+    id: 'accounting-officer',
+    name: 'Ankur Satasiya',
+    designation: 'Accounting Officer',
+    summary: 'Accounting officer ensuring ledger accuracy, reconciliations, and on-time statutory submissions for UAE entities.',
+    bio: 'Ankur specializes in day-to-day accounting control, month-end close discipline, and audit-ready documentation. He streamlines reconciliations, strengthens working-paper quality, and partners with clients to keep filings precise and punctual.',
+    image: '/assets/AnkurSatasiya.png'
   },
   {
     id: 'tax-compliance',
@@ -51,7 +59,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     designation: 'Tax & Compliance',
     summary: 'Specialist in VAT and Corporate Tax compliance, helping businesses stay ahead of evolving UAE regulations.',
     bio: 'Varsha partners with clients to simplify VAT, Corporate Tax, and statutory compliance. She focuses on accurate filings, efficient reporting, and proactive risk mitigation so businesses can operate with confidence.',
-    image: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&q=80&w=900'
+    image: '/assets/VarshaSharma.png'
   }
 ];
 

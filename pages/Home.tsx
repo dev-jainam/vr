@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+﻿import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -22,7 +22,11 @@ import {
   Maximize2,
   Cpu,
   Fingerprint,
-  Layers
+  Layers,
+  AlertTriangle,
+  Receipt,
+  Mail,
+  FileText
 } from 'lucide-react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { SERVICES, SERVICE_ICONS, TEAM_MEMBERS, BLOG_POSTS, FAQS } from '../constants.tsx';
@@ -118,6 +122,7 @@ const InstitutionalLattice = () => {
 const Home: React.FC = () => {
   const { localMap } = useVault();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [isCalm, setIsCalm] = useState(false);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -136,62 +141,251 @@ const Home: React.FC = () => {
     }
   };
 
-  return (
-    <div className="overflow-hidden bg-[#050505] selection:bg-vr-blue/30">
-      
-      {/* 1. HERO (Black Background) */}
-      <section className="relative min-h-[90vh] flex items-center pt-24 pb-20 overflow-hidden bg-[#050505]">
-        <div className="absolute inset-0 z-0 pointer-events-none select-none">
-          <motion.div
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1.2, opacity: 0.15 }}
-            transition={{ opacity: { duration: 2.5 }, scale: { duration: 40, repeat: Infinity, repeatType: "reverse" } }}
-            className="absolute inset-0"
-          >
-            <img
-              src={localMap['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2000']}
-              className="w-full h-full object-cover grayscale contrast-150 brightness-50"
-              alt=""
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]"></div>
-        </div>
+  const wordVariants = {
+    hidden: { opacity: 0, y: 12 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: 0.08 * i + 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+    })
+  };
 
-        <div className="relative z-20 max-w-7xl mx-auto px-6 lg:px-10 w-full">
-          <div className="grid lg:grid-cols-12 gap-16 items-center">
-            <motion.div variants={containerVariants} initial="hidden" animate="visible" className="lg:col-span-7 text-center lg:text-left">
-              <motion.div variants={itemVariants} className="inline-flex items-center gap-4 mb-8 glass px-5 py-2 rounded-full border border-white/10">
-                <div className="w-2 h-2 rounded-full bg-vr-blue animate-pulse"></div>
-                <span className="text-white font-bold uppercase tracking-[0.45em] text-[10px]">Accounting & Advisory • VR GLOBAL</span>
+  const headlineWords = [
+    { text: 'Avoid', color: null },
+    { text: 'UAE', color: null },
+    { text: 'Compliance', color: 'blue' },
+    { text: 'Fines.', color: 'blue', newLine: true },
+    { text: 'Focus', color: null },
+    { text: 'on', color: null },
+    { text: 'Growing', color: 'green' },
+    { text: 'Your', color: 'green' },
+    { text: 'Business.', color: 'green' }
+  ];
+
+  useEffect(() => {
+    const t = setTimeout(() => setIsCalm(true), 1000);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <div className="overflow-hidden bg-white selection:bg-vr-blue/30">
+      
+      {/* 1. HERO (Compliance Focused) */}
+      <section className="relative overflow-hidden bg-white">
+        {/* subtle grid / map-inspired texture */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle_at_20%_20%,#1E3A8A_0,transparent_22%),radial-gradient(circle_at_80%_10%,#2563EB_0,transparent_18%),linear-gradient(90deg,#0F172A0f_1px,transparent_1px),linear-gradient(0deg,#0F172A0f_1px,transparent_1px)] bg-[length:320px_320px,240px_240px,80px_80px,80px_80px]" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
+          <div className="grid lg:grid-cols-2 gap-14 items-center">
+            {/* Left content */}
+            <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-8">
+              <motion.span variants={itemVariants} className="inline-flex items-center gap-2 rounded-full border border-[#1E3A8A]/15 bg-[#1E3A8A]/5 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-[#1E3A8A]">
+                Accounting & Advisory • UAE Specialists
+              </motion.span>
+
+              <motion.div variants={itemVariants} className="relative">
+                <motion.div
+                  aria-hidden
+                  className="absolute -left-10 -top-8 w-64 h-64 bg-[#1E3A8A]/8 blur-3xl rounded-[40%]"
+                  animate={{ y: [0, 10, 0], x: [0, 8, 0] }}
+                  transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-[#0F172A] relative z-10 flex flex-wrap sm:block">
+                  {headlineWords.map((w, i) => (
+                    <motion.span
+                      key={`${w.text}-${i}`}
+                      variants={wordVariants}
+                      custom={i}
+                      initial="hidden"
+                      animate="visible"
+                      className={`relative inline-block mr-2 sm:mr-3 mb-2 sm:mb-3 ${w.newLine ? 'w-full' : ''}`}
+                    >
+                      {w.color && (
+                        <motion.span
+                          aria-hidden
+                          className={`absolute inset-y-1 -left-1 -right-1 rounded-full ${w.color === 'blue' ? 'bg-[#2563EB]/20' : 'bg-[#16A34A]/20'}`}
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          transition={{ delay: 0.8, duration: 0.8, ease: 'easeOut' }}
+                          style={{ transformOrigin: '0% 50%' }}
+                        />
+                      )}
+                      <span className={`${w.color ? 'text-[#0F172A]' : 'text-[#0F172A]'}`}>
+                        {w.text}
+                      </span>
+                    </motion.span>
+                  ))}
+                </h1>
               </motion.div>
-              <motion.h1 variants={itemVariants} className="text-5xl md:text-8xl font-bold luxury-font leading-[1.1] tracking-[-0.03em] text-white mb-8">
-                Financial clarity <br />
-                <span className="text-vr-blue italic">for Dubai & UAE</span> <br />
-                businesses.
-              </motion.h1>
-              <motion.p variants={itemVariants} className="text-lg md:text-xl text-gray-400 mb-12 font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                We empower startups and established companies across Dubai and the UAE with expert accounting, bookkeeping, VAT, payroll, audit, and advisory services—bringing 7+ years of experience to every engagement so you stay compliant and scale with confidence.
+
+              <motion.p variants={itemVariants} className="text-lg leading-relaxed text-slate-600 max-w-2xl">
+                We help Dubai and UAE companies manage accounting, VAT filing, corporate tax, payroll, and audit compliance — so you never worry about penalties or deadlines.
               </motion.p>
-              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
-                <Link to="/contact" className="w-full sm:w-auto bg-vr-blue text-white px-12 py-5 rounded-full font-bold flex items-center justify-center gap-3 hover:bg-white hover:text-vr-navy transition-all transform hover:-translate-y-1 shadow-3xl">
-                  Request Consultation <ArrowRight className="w-5 h-5" />
+
+              <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+                <Link to="/contact" className="px-6 sm:px-8 py-4 rounded-full bg-[#1E3A8A] text-white font-semibold tracking-wide shadow-lg shadow-[#1E3A8A]/25 transition transform hover:-translate-y-0.5 hover:bg-[#153072]">
+                  Talk to an Advisor (Free)
                 </Link>
-                <Link to="/services" className="w-full sm:w-auto glass border border-white/10 text-white px-12 py-5 rounded-full font-bold flex items-center justify-center hover:bg-white/10 transition-all">
-                  Our Solutions
+                <Link to="/services" className="px-6 sm:px-8 py-4 rounded-full border border-[#1E3A8A] text-[#1E3A8A] font-semibold tracking-wide transition transform hover:-translate-y-0.5 hover:bg-[#1E3A8A] hover:text-white">
+                  View Our Services
                 </Link>
+              </motion.div>
+
+              <motion.div variants={itemVariants} className="flex flex-wrap gap-6 text-sm font-semibold text-[#0F172A]">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#1E3A8A]" /> 7+ Years Experience
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#1E3A8A]" /> 200+ Businesses Supported
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#1E3A8A]" /> Corporate Tax & VAT Experts
+                </div>
               </motion.div>
             </motion.div>
-            
-            {/* Redesigned Institutional Visual */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }} 
-              animate={{ opacity: 1, scale: 1 }} 
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }} 
-              className="lg:col-span-5 hidden lg:block relative h-[650px]"
+
+            {/* Right visual: Penalty protection to compliant approval */}
+            <motion.div
+              initial={{ opacity: 0.2, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="relative"
             >
-              <InstitutionalLattice />
+              <div className="absolute inset-0 blur-3xl bg-[#1E3A8A]/12 -z-10" />
+              <div className="rounded-3xl bg-white shadow-2xl shadow-[#0F172A]/10 border border-slate-100 p-8 sm:p-10 max-w-lg w-full ml-auto overflow-hidden">
+                <div className="flex items-start justify-between mb-6">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#1E3A8A]">
+                      Penalty Protection 
+                    </p>
+                    <h3 className="text-2xl font-bold text-[#0F172A]">Compliance Safeguard</h3>
+                  </div>
+                  <div className="h-10 w-10 rounded-full bg-[#1E3A8A]/10 flex items-center justify-center text-[#1E3A8A] text-xs font-semibold">
+                    VR
+                  </div>
+                </div>
+
+                {/* Document + shield animation */}
+                <div className="relative">
+                  <motion.div
+                    initial={{ scale: 0.98, opacity: 0.9 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.6 }}
+                    className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="text-xs font-semibold text-[#0F172A]">UAE Compliance Notice</div>
+                      <div className="text-[10px] text-slate-500">Ref: CTX-2026</div>
+                    </div>
+                    <div className="space-y-2 text-[12px] text-slate-700">
+                      <div className="flex items-center justify-between">
+                        <span>Late VAT Filing</span>
+                        <span className="text-[#B91C1C] font-semibold">Overdue</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>Compliance Violation</span>
+                        <span className="text-[#B91C1C] font-semibold">Penalty Issued</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>Audit Request</span>
+                        <span className="text-[#B91C1C] font-semibold">Pending</span>
+                      </div>
+                    </div>
+
+                    {/* Penalty stamp */}
+                    <motion.div
+                      initial={{ opacity: 1, rotate: -8, scale: 1 }}
+                      animate={{ opacity: isCalm ? 0 : 1, scale: isCalm ? 0.8 : 1 }}
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                      className="absolute -top-4 -right-6 px-4 py-2 border-2 border-[#B91C1C] text-[#B91C1C] font-black uppercase tracking-[0.2em] text-[11px] rounded rotate-[-8deg] bg-white"
+                    >
+                      Penalty Issued
+                    </motion.div>
+
+                    {/* Approved stamp */}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8, rotate: 6 }}
+                      animate={{ opacity: isCalm ? 1 : 0, scale: isCalm ? 1 : 0.8 }}
+                      transition={{ duration: 0.6, delay: 0.8 }}
+                      className="absolute -bottom-4 -left-4 px-4 py-2 border-2 border-[#16A34A] text-[#15803D] font-black uppercase tracking-[0.2em] text-[11px] rounded rotate-[6deg] bg-white"
+                    >
+                      Compliant & Approved
+                    </motion.div>
+
+                    {/* Shield overlay */}
+                    <motion.div
+                      initial={{ scale: 0.6, opacity: 0 }}
+                      animate={{ scale: isCalm ? 1 : 0.6, opacity: isCalm ? 1 : 0 }}
+                      transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+                      className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                    >
+                      <div className="w-24 h-24 rounded-full bg-[#1E3A8A]/10 border border-[#1E3A8A]/30 flex items-center justify-center shadow-lg shadow-[#1E3A8A]/10">
+                        <ShieldCheck className="w-10 h-10 text-[#1E3A8A]" />
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                </div>
+
+                {/* Final clean panel */}
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: isCalm ? 1 : 0, y: isCalm ? 0 : 6 }}
+                  transition={{ duration: 0.6, delay: 1.0, ease: 'easeOut' }}
+                  className="mt-6 rounded-2xl border border-[#1E3A8A]/15 bg-[#1E3A8A]/5 px-4 py-4 text-center"
+                >
+                  <div className="flex justify-center gap-3 mb-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#16A34A]" />
+                    <CheckCircle2 className="w-5 h-5 text-[#2563EB]" />
+                    <CheckCircle2 className="w-5 h-5 text-[#16A34A]" />
+                  </div>
+                  <p className="text-sm font-semibold text-[#0F172A]">We Handle The Numbers. You Handle The Business.</p>
+                  <p className="text-xs text-[#2563EB] mt-1">Penalties prevented • Filings aligned • Approvals secured</p>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* 1.5 IMPORTANT STRIP (Black Background) */}
+      <section className="relative py-16 bg-[#050505] text-white border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <motion.div 
+            variants={containerVariants} 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true }} 
+            className="grid lg:grid-cols-3 gap-10 items-center"
+          >
+            <motion.div variants={itemVariants} className="space-y-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-vr-blue">Important</p>
+              <h3 className="text-3xl md:text-4xl font-bold luxury-font leading-tight text-white">
+                Compliance you can rely on.
+              </h3>
+              <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+                A concise assurance strip to keep your stakeholders confident between first impression and our safeguards.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              variants={itemVariants} 
+              className="lg:col-span-2 grid sm:grid-cols-3 gap-6"
+            >
+              {[
+                { icon: ShieldCheck, title: "FTA / DMCC Ready", desc: "Filings and ledgers aligned to UAE mandates for instant review." },
+                { icon: Layers, title: "Audit Trail Intact", desc: "Evidence-packed workpapers versioned, linked, and inspection-ready." },
+                { icon: CheckCircle2, title: "Response <24h", desc: "Priority answers on tax and compliance queries, every business day." }
+              ].map((item, idx) => (
+                <div key={idx} className="bg-white/5 border border-white/10 rounded-2xl p-6 h-full flex flex-col gap-3 hover:border-vr-blue/40 transition-colors">
+                  <div className="w-10 h-10 rounded-full bg-vr-blue/15 text-vr-blue flex items-center justify-center">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <h4 className="text-lg font-bold luxury-font text-white tracking-tight">{item.title}</h4>
+                  <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -500,7 +694,7 @@ const Home: React.FC = () => {
             {TEAM_MEMBERS.slice(0, 4).map((member) => (
               <motion.div key={member.id} variants={itemVariants} className="group relative flex flex-col">
                 <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden mb-8 shadow-2xl grayscale group-hover:grayscale-0 border border-white/5 transition-all duration-700">
-                  <img src={localMap[member.image] || member.image} alt={member.name} className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" />
+                  <img src={localMap[member.image] || member.image} alt={member.name} className="w-full h-full object-cover object-top scale-105 group-hover:scale-100 transition-transform duration-1000" />
                   <div className="absolute inset-0 bg-gradient-to-t from-vr-navy via-transparent to-transparent opacity-0 group-hover:opacity-60 transition-opacity" />
                   <div className="absolute bottom-8 left-8 right-8 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all">
                     <Linkedin className="w-6 h-6 text-vr-blue mb-4" />
